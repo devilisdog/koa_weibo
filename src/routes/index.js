@@ -4,7 +4,7 @@ router.get('/', async (ctx, next) => {
     await ctx.render('index', {
         title: 'Hello Koa 2!',
         subTitle: '关注',
-        isMe: true,
+        isMe: true
     })
 })
 
@@ -14,7 +14,7 @@ router.get('/string', async (ctx, next) => {
 
 router.get('/json', async (ctx, next) => {
     ctx.body = {
-        title: 'koa2 json',
+        title: 'koa2 json'
     }
 })
 
@@ -23,7 +23,7 @@ router.get('/profile/:userName/:pageIndex', async (ctx, next) => {
     ctx.body = {
         title: 'this is profile page',
         userName,
-        pageIndex,
+        pageIndex
     }
 })
 

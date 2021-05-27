@@ -6,19 +6,39 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const jwtKoa = require('koa-jwt')
+const session = require('koa-generic-session')
+const redisStore = require('koa-redis')
+const { REDIS_CONFIG } = require('./config/db')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 const error = require('./routes/error')
 
-const { SECRET } = require('./config/constants')
+const { SECRET } = require('./config/db')
 
 // error handler
 onerror(app)
 
+// app.use(
+//     jwtKoa({ secret: SECRET }).unless({
+//         path: [/^\/users\/login/] //自定义哪些接口目录忽略jwt验证  没有权限会返回401
+//     })
+// )
+
+app.keys = [SECRET]
 app.use(
-    jwtKoa({ secret: SECRET }).unless({
-        path: [/^\/users\/login/] //自定义哪些接口目录忽略jwt验证  没有权限会返回401
+    session({
+        key: 'weibo.sid', //cookie name 默认“koa.sid”
+        prefix: 'weibo:sess:', //redis key 的前缀，默认是 “koa:sess:”
+        cookie: {
+            path: '/',
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000 //单位 ms
+        },
+        ttl: 24 * 60 * 60 * 1000, //不设置默认与maxAge相同
+        store: redisStore({
+            all: `${REDIS_CONFIG.host}:${REDIS_CONFIG.port}`
+        })
     })
 )
 
