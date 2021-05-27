@@ -6,5 +6,5 @@ module.exports = {
     isTest: ENV === 'test',
     notTest: ENV !== 'test',
     isProd: ENV === 'production',
-    notProd: ENV !== 'production',
+    notProd: ENV !== 'production'
 }
