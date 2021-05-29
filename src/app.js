@@ -10,8 +10,9 @@ const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const { REDIS_CONFIG } = require('./config/db')
 
+//路由
 const index = require('./routes/index')
-const users = require('./routes/users')
+const userApiRouter = require('./routes/api/users')
 const error = require('./routes/error')
 
 const { SECRET } = require('./config/db')
@@ -58,7 +59,7 @@ app.use(
  * routes
  */
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 
 //404的路由（“*”）  一定要在注册在最后面
 app.use(error.routes(), error.allowedMethods())
