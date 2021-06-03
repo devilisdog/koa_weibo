@@ -9,10 +9,11 @@ router.prefix('/api/user')
 
 //注册路由
 router.post('/register', async (ctx, next) => {
-    const { userName, passWord, gender } = ctx.request.body
+    const { userName, passWord, gender, nickName } = ctx.request.body
     ctx.body = await register({
         userName,
         passWord,
+        nickName,
         gender
     })
 })

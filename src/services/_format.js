@@ -20,8 +20,14 @@ function formatUser(list) {
     }
     if (list instanceof Array) {
         //数组 用户列表
-        return list.map(_formatUserPicture)
+        return list.map((item) => {
+            return _formatUserPicture(item)
+        })
     }
     //单个对象
     return _formatUserPicture(list)
+}
+
+module.exports = {
+    formatUser
 }

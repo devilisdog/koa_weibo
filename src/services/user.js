@@ -13,7 +13,7 @@ const { formatUser } = require('./_format')
 async function getUserInfo(userName, passWord) {
     //查询条件
     const whereOpt = {
-        uerName
+        userName
     }
     if (passWord) {
         Object.assign(whereOpt, { passWord })
@@ -26,10 +26,12 @@ async function getUserInfo(userName, passWord) {
     if (result == null) {
         return result
     }
+    // console.log(result.dataValues, 'result.dataValues')
 
     //格式化处理
-    const formatRes = formatUser(result.dataValues)
-    return formatRes
+    // const formatRes = formatUser(result.dataValues)
+
+    return result.dataValues
 }
 
 /**
@@ -46,6 +48,7 @@ async function createUser({ userName, passWord, gender = 3, nickName }) {
         nickName,
         gender
     })
+
     return result.dataValues
 }
 

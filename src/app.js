@@ -13,12 +13,11 @@ const { REDIS_CONFIG } = require('./config/db')
 //路由
 const index = require('./routes/index')
 const userApiRouter = require('./routes/api/users')
-const error = require('./routes/error')
 
 const { SECRET } = require('./config/db')
 
 // error handler
-onerror(app)
+// onerror(app)
 
 // app.use(
 //     jwtKoa({ secret: SECRET }).unless({
@@ -61,12 +60,9 @@ app.use(
 app.use(index.routes(), index.allowedMethods())
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 
-//404的路由（“*”）  一定要在注册在最后面
-app.use(error.routes(), error.allowedMethods())
-
 // error-handling
-app.on('error', (err, ctx) => {
-    console.error('server error', err, ctx)
-})
+// app.on('error', (err, ctx) => {
+//     console.error('server error', err, ctx)
+// })
 
 module.exports = app
