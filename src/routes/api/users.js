@@ -4,11 +4,14 @@ const { SECRET } = require('../../config/constants')
 const util = require('util')
 const { isExist, register } = require('../../controller/user')
 const verify = util.promisify(jsonwebtoken.verify)
+const userValidate = require('../../validator/user')
+
+const { genValidator } = require('../../middlewares/validator')
 
 router.prefix('/api/user')
 
 //注册路由
-router.post('/register', async (ctx, next) => {
+router.post('/register', genValidator(userValidate), async (ctx, next) => {
     const { userName, passWord, gender, nickName } = ctx.request.body
     ctx.body = await register({
         userName,
@@ -18,7 +21,7 @@ router.post('/register', async (ctx, next) => {
     })
 })
 
-//用户名是否存在路由
+//用户名是否存在
 router.post('/isExist', async (ctx, next) => {
     const { userName } = ctx.request.body
     ctx.body = await isExist(userName)

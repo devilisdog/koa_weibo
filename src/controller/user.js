@@ -43,6 +43,7 @@ async function register({ userName, passWord, gender, nickName }) {
         })
         return new SucessModel()
     } catch (error) {
+        console.log(error, 'error')
         return new ErrorModel(registerFailInfo)
     }
 }

@@ -26,5 +26,10 @@ module.exports = {
     loginCheckFailInfo: {
         errno: 10005,
         message: '未登陆'
+    },
+    //json schema 校验失败
+    jsonSchemaFileInfo: {
+        error: 1006,
+        message: '数据格式校验错误'
     }
 }
